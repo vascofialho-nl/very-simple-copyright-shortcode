@@ -19,10 +19,6 @@ Text Domain: very-simple-copyright-shortcode
 // Include installation scripts
 require_once(plugin_dir_path(__FILE__) . 'install.php');
 
-// include updater file
-require_once(plugin_dir_path(__FILE__) . 'updater.php');
-
-
 // Add a menu item to the dashboard
 	function vscs_add_menu_item() {
 		add_options_page('Copyright Settings', 'Copyright Settings', 'manage_options', 'vscs_copyright_settings', 'vscs_render_settings_page');
