@@ -19,6 +19,9 @@ Text Domain: very-simple-copyright-shortcode
 // Include installation scripts
 require_once(plugin_dir_path(__FILE__) . 'install.php');
 
+// include updater file
+require_once(plugin_dir_path(__FILE__) . 'updater.php');
+
 
 // Add a menu item to the dashboard
 	function vscs_add_menu_item() {
