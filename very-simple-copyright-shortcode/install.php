@@ -1,10 +1,8 @@
 <?php
-
-// Check if this file is being accessed within the WordPress environment
+// Check if this file is being accessed within the WordPress environment and exit if not.
     if ( ! defined( 'ABSPATH' ) ) {
         exit; // Exit if accessed directly
     }
-
 
 // Redirect to settings page upon activation
     function vscs_redirect_to_settings() {
