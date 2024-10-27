@@ -1,8 +1,9 @@
 <?php
+// Check if this file is being accessed within the WordPress environment and exit if not.
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit; // Exit if accessed directly
+    }
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
-}
 
 class VSCS_Plugin_Updater {
     private $api_url = 'https://api.github.com/repos/vascofialho-nl/very-simple-copyright-shortcode/releases/latest';
