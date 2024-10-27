@@ -42,6 +42,9 @@ Use the `[vs_copyright]` shortcode in your posts, pages, or widgets to display t
 
 == Changelog ==
 
+= 1.1 = 
+Testing the updater control system
+
 = 1.0 =
 * Initial release.
 
