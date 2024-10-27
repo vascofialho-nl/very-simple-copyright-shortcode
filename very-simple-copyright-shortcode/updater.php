@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define constants for version control
-define( 'VSCS_PLUGIN_VERSION', '1.0' );
+define( 'VSCS_PLUGIN_VERSION', '1.1' );
 define( 'VSCS_PLUGIN_NAME', 'very-simple-copyright-shortcode' );
 define( 'VSCS_GITHUB_URL', 'https://github.com/vascofialho-nl/very-simple-copyright-shortcode' );
 
