@@ -8,7 +8,7 @@ Plugin Name: Very Simple Copyright Shortcode
 Plugin URI: http://www.vascofialho.nl
 Description: Display copyright information with a shortcode.
 Author: vascofmdc
-Version: 1.1
+Version: 1.0
 Author URI: http://www.vascofialho.nl
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,6 +18,9 @@ Text Domain: very-simple-copyright-shortcode
 
 // Include installation scripts
 require_once(plugin_dir_path(__FILE__) . 'install.php');
+
+// Include updater system (connected with github)
+require_once plugin_dir_path( __FILE__ ) . 'updater.php';
 
 // Add a menu item to the dashboard
 	function vscs_add_menu_item() {
