@@ -1,9 +1,9 @@
 <?php
+// Check if this file is being accessed within the WordPress environment and exit if not.
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit; // Exit if accessed directly
+    }
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) || ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-    exit;
-}
 
 // Delete plugin data on plugin deletion
 function vscs_delete_plugin_data() {
