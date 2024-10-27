@@ -54,6 +54,6 @@ class VSCS_Plugin_Updater {
     }
 }
 
-new VSCS_Plugin_Updater( __FILE__, '1.1' ); // Replace '1.0' with the current plugin version.
+new VSCS_Plugin_Updater( __FILE__, '1.2' ); // Replace '1.0' with the current plugin version.
 
 /* EOF =============================================================================================================================================================== */
