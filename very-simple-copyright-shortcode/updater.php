@@ -80,7 +80,7 @@ class VSCS_Plugin_Updater {
         $response->sections = array(
             'description'  => 'This plugin allows you to easily display copyright information on your WordPress site using a shortcode.',
             'installation' => '1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.<br>2. Activate the plugin through the \'Plugins\' screen in WordPress.<br>3. Navigate to \'Copyright Settings\' under the \'Settings\' menu in the WordPress dashboard to configure the plugin settings.<br>4. Use the `[vs_copyright]` shortcode to display the copyright information on your site.',
-            'changelog'    => 'Version 1.1: Minor bug fixes and improvements. <br><br> Version 1.2: Minor bug fixes and improvements.',
+            'changelog'    => 'Version 1.2: Minor bug fixes and improvements.<br>Version 1.1: Minor bug fixes and improvements.',
         );
 
         return $response;
