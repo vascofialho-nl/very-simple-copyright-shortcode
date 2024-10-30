@@ -9,7 +9,7 @@ Plugin Name: Very Simple Copyright Shortcode
 Plugin URI: http://www.vascofialho.nl
 Description: Display copyright information with a shortcode.
 Author: vascofmdc
-Version: 1.1
+Version: 1.2
 Author URI: http://www.vascofialho.nl
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
