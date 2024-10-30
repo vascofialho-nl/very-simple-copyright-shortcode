@@ -1,9 +1,9 @@
-=== Very Simple Copyright Shortcode ===
+=== Very Simple Copyright Shortcode === 
 Contributors: vascofmdc
 Tags: copyright, shortcode
 Requires at least: 4.0
 Tested up to: 6.6.2
-Stable tag: 1.2
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,9 +41,6 @@ Use the `[vs_copyright]` shortcode in your posts, pages, or widgets to display t
 1. Screenshot of the Copyright Settings page in the WordPress dashboard.
 
 == Changelog ==
-
-= 1.2 = 
-some more testing
 
 = 1.1 = 
 Testing the updater control system
