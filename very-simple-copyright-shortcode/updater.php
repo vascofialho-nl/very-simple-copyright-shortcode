@@ -59,8 +59,9 @@ class VSCS_Plugin_Updater {
     }
 
     public function plugin_info($false, $action, $response) {
-        if ($response->slug !== $this->basename) {
-            return false;
+        // Check if $response is an object and has a 'slug' property
+        if (!is_object($response) || !isset($response->slug) || $response->slug !== $this->basename) {
+            return $false;
         }
 
         // Custom plugin information
