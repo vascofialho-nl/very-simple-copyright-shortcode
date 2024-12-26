@@ -1,8 +1,8 @@
 <?php
-// Check if this file is being accessed within the WordPress environment and exit if not.
-	if (!defined('ABSPATH')) {
-		exit; // Exit if accessed directly
-	}
+// Exit if accessed directly
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 class VSCS_Plugin_Updater {
     private $file;
@@ -22,31 +22,36 @@ class VSCS_Plugin_Updater {
     }
 
     public function check_for_update($transient) {
-        // Only proceed if the transient contains the 'checked' property
-        if (!isset($transient->checked)) {
+        // Bail early if no transient or if 'checked' isn't set
+        if (!is_object($transient) || !isset($transient->checked)) {
             return $transient;
         }
 
-        // GitHub repository info
+        // Plugin and repository details
         $repo = 'vascofialho-nl/very-simple-copyright-shortcode';
-        $remote_version = $this->get_latest_version($repo);
-
-        if (!$remote_version) {
-            return $transient; // Return as is if no version info is found
-        }
-
         $plugin_data = get_plugin_data($this->file);
         $local_version = $plugin_data['Version'];
+        $remote_version = $this->get_latest_version($repo);
 
-        // Trigger notification only if a new version is available
-        if (version_compare($local_version, $remote_version, '<')) {
+        // Debugging: Log the versions
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log("Local version: $local_version, Remote version: $remote_version");
+        }
+
+        // Only add the update if the remote version is greater than the local version
+        if ($remote_version && version_compare($local_version, $remote_version, '<')) {
             $transient->response[$this->plugin] = (object) array(
                 'slug'        => $this->basename,
                 'new_version' => $remote_version,
                 'url'         => "https://github.com/$repo",
                 'package'     => "https://github.com/$repo/releases/download/v$remote_version/very-simple-copyright-shortcode.zip",
-                'auto_update' => true, // Enable automatic updates
+                'auto_update' => true,
             );
+        } else {
+            // Debugging: Log when no update is added
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("No update required: Local version is equal to or newer than the remote version.");
+            }
         }
 
         return $transient;
@@ -56,10 +61,17 @@ class VSCS_Plugin_Updater {
         $response = wp_remote_get("https://api.github.com/repos/$repo/releases/latest");
 
         if (is_wp_error($response)) {
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log("Error fetching latest version: " . $response->get_error_message());
+            }
             return false;
         }
 
         $data = json_decode(wp_remote_retrieve_body($response));
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log("GitHub API Response: " . print_r($data, true));
+        }
+
         return isset($data->tag_name) ? ltrim($data->tag_name, 'v') : false;
     }
 
@@ -68,18 +80,18 @@ class VSCS_Plugin_Updater {
             return false;
         }
 
+        $repo = 'vascofialho-nl/very-simple-copyright-shortcode';
+
         $response->name = 'Very Simple Copyright Shortcode';
         $response->slug = $this->basename;
-        $response->version = $this->get_latest_version('vascofialho-nl/very-simple-copyright-shortcode');
+        $response->version = $this->get_latest_version($repo);
         $response->author = '<a href="http://www.vascofialho.nl">vascofmdc</a>';
         $response->homepage = 'https://github.com/vascofialho-nl/very-simple-copyright-shortcode';
-        $response->download_link = "https://github.com/vascofialho-nl/very-simple-copyright-shortcode/releases/download/v{$response->version}/very-simple-copyright-shortcode.zip";
-
-        // Add sections for additional information
+        $response->download_link = "https://github.com/$repo/releases/download/v{$response->version}/very-simple-copyright-shortcode.zip";
         $response->sections = array(
             'description'  => 'This plugin allows you to easily display copyright information on your WordPress site using a shortcode.',
-            'installation' => '1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.<br>2. Activate the plugin through the \'Plugins\' screen in WordPress.<br>3. Navigate to \'Copyright Settings\' under the \'Settings\' menu in the WordPress dashboard to configure the plugin settings.<br>4. Use the `[vs_copyright]` shortcode to display the copyright information on your site.',
-            'changelog'    => 'Version 1.2: Minor bug fixes and improvements.',
+            'installation' => '1. Upload the plugin files to the `/wp-content/plugins/` directory.<br>2. Activate the plugin.<br>3. Configure settings under "Copyright Settings."',
+            'changelog'    => 'Version 1.3.1: update to the updater file.',
         );
 
         return $response;

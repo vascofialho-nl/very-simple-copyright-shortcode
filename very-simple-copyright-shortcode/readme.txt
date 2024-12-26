@@ -42,6 +42,9 @@ Use the `[vs_copyright]` shortcode in your posts, pages, or widgets to display t
 
 == Changelog ==
 
+= 1.3.1 = 
+Update to the updater file
+
 = 1.3 =
 Added an icon and a banner to the plugin, also did an inprovement on the updater file.
 

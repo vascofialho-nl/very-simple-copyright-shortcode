@@ -22,7 +22,7 @@ require_once(plugin_dir_path(__FILE__) . 'install.php');
 
 // Include updater system (connected with github)
 require_once plugin_dir_path( __FILE__ ) . 'updater.php';
-define( 'VSCS_PLUGIN_VERSION', '1.3' ); // Adjust this when you release a new version.
+define( 'VSCS_PLUGIN_VERSION', '1.3.1' ); // Adjust this when you release a new version.
 new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 
 // Add a menu item to the dashboard
