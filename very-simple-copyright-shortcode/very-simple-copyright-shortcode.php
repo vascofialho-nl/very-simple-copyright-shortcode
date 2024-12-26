@@ -9,7 +9,7 @@ Plugin Name: Very Simple Copyright Shortcode
 Plugin URI: http://www.vascofialho.nl
 Description: Display copyright information with a shortcode.
 Author: vascofmdc
-Version: 1.2
+Version: 1.3
 Author URI: http://www.vascofialho.nl
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -22,10 +22,8 @@ require_once(plugin_dir_path(__FILE__) . 'install.php');
 
 // Include updater system (connected with github)
 require_once plugin_dir_path( __FILE__ ) . 'updater.php';
-define( 'VSCS_PLUGIN_VERSION', '1.2' ); // Adjust this when you release a new version.
-
+define( 'VSCS_PLUGIN_VERSION', '1.3' ); // Adjust this when you release a new version.
 new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
-
 
 // Add a menu item to the dashboard
 	function vscs_add_menu_item() {
@@ -52,15 +50,22 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 	function vscs_render_settings_page() {
 		vscs_validate_user(); // Add user validation check
 		
+		
+		echo '<div class="wrap" style="text-align: center;">';
+		echo '    <br>';		
+		echo '    <hr>';
+		echo '    <img src="'.plugin_dir_url( __FILE__ ).'assets/banner-1544x500.png" alt="vscs banner" style="width:50%; height: auto;">';
+		echo '    <hr>';
+		echo '</div><!-- end of wrap -->';		
+	
 		echo '<div class="wrap">';
 		echo '    <h2>Copyright Settings</h2>';
+		
 		echo '	  <form method="post" action="options.php">';
-				
 				      settings_fields('vscs_copyright_settings');
 					  do_settings_sections('vscs_copyright_settings');
 					  wp_nonce_field('vscs_save_settings', 'vscs_nonce');
 					  submit_button();
-				
 		echo '	</form>';		
 		echo '</div><!-- end of wrap  -->';
 		
