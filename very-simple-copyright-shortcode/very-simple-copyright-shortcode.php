@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Check if this file is being accessed within the WordPress environment and exit if not.
     if ( ! defined( 'ABSPATH' ) ) {
         exit; // Exit if accessed directly
@@ -9,7 +9,7 @@ Plugin Name: Very Simple Copyright Shortcode
 Plugin URI: http://www.vascofialho.nl
 Description: Display copyright information with a shortcode.
 Author: vascofmdc
-Version: 1.3
+Version: 1.3.2
 Author URI: http://www.vascofialho.nl
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -22,7 +22,7 @@ require_once(plugin_dir_path(__FILE__) . 'install.php');
 
 // Include updater system (connected with github)
 require_once plugin_dir_path( __FILE__ ) . 'updater.php';
-define( 'VSCS_PLUGIN_VERSION', '1.3.1' ); // Adjust this when you release a new version.
+define( 'VSCS_PLUGIN_VERSION', '1.3.2' ); // Adjust this when you release a new version.
 new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 
 // Add a menu item to the dashboard
@@ -49,28 +49,28 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 // Render the settings page
 	function vscs_render_settings_page() {
 		vscs_validate_user(); // Add user validation check
-		
-		
+
+
 		echo '<div class="wrap" style="text-align: center;">';
-		echo '    <br>';		
+		echo '    <br>';
 		echo '    <hr>';
 		echo '    <img src="'.plugin_dir_url( __FILE__ ).'assets/banner-1544x500.png" alt="vscs banner" style="width:50%; height: auto;">';
 		echo '    <hr>';
-		echo '</div><!-- end of wrap -->';		
-	
+		echo '</div><!-- end of wrap -->';
+
 		echo '<div class="wrap">';
 		echo '    <h2>Copyright Settings</h2>';
-		
+
 		echo '	  <form method="post" action="options.php">';
 				      settings_fields('vscs_copyright_settings');
 					  do_settings_sections('vscs_copyright_settings');
 					  wp_nonce_field('vscs_save_settings', 'vscs_nonce');
 					  submit_button();
-		echo '	</form>';		
+		echo '	</form>';
 		echo '</div><!-- end of wrap  -->';
-		
+
 		echo '<hr>';
-		
+
 		echo '<div class="wrap">';
 		echo '    <p>like this plugin? help me maintain it and create much more by donating here: <a href="https://paypal.me/vascofialho">https://paypal.me/vascofialho</a></p>';
 		echo '</div><!-- end of wrap -->';
@@ -82,7 +82,7 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 	function vscs_register_settings() {
 		register_setting('vscs_copyright_settings', 'vscs_copyYear');
 		register_setting('vscs_copyright_settings', 'vscs_site_title');
-		
+
 		register_setting('vscs_copyright_settings', 'vscs_powered_by_text');
 		register_setting('vscs_copyright_settings', 'vscs_powered_by_name');
 		register_setting('vscs_copyright_settings', 'vscs_powered_by_url');
@@ -95,7 +95,7 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 
 		add_settings_field('vscs_copyYear',   		'Copyright Year:', 		'vscs_render_copyYear_field',   		'vscs_copyright_settings', 'vscs_copyright_section');
 		add_settings_field('vscs_site_title', 		'Site Title:', 	  		'vscs_render_site_title_field', 		'vscs_copyright_settings', 'vscs_copyright_section');
-		
+
 		add_settings_field('vscs_powered_by_text', 'Powered by text:',     'vscs_render_powered_by_text_field', 	'vscs_copyright_settings', 'vscs_copyright_section');
 		add_settings_field('vscs_powered_by_name', 'Powered by name:',     'vscs_render_powered_by_name_field', 	'vscs_copyright_settings', 'vscs_copyright_section');
 		add_settings_field('vscs_powered_by_url', 	'Powered by website:',  'vscs_render_powered_by_url_field', 	'vscs_copyright_settings', 'vscs_copyright_section');
@@ -128,14 +128,14 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 	function vscs_render_powered_by_text_field() {
 		$poweredBy_text = get_option('vscs_powered_by_text', __('Powered by: ', 'very-simple-copyright-shortcode'));
 		echo '<input type="text" name="vscs_powered_by_text" value="' . esc_attr($poweredBy_text) . '" />';
-		echo '&nbsp; (ex, powered by: / built by: or whatever you feel comfortable when presenting yourself. )';		
+		echo '&nbsp; (ex, powered by: / built by: or whatever you feel comfortable when presenting yourself. )';
 	}
 
 // Render Powered by name field
 	function vscs_render_powered_by_name_field() {
 		$poweredBy_name = get_option('vscs_powered_by_name', __('Your name', 'very-simple-copyright-shortcode'));
 		echo '<input type="text" name="vscs_powered_by_name" value="' . esc_attr($poweredBy_name) . '" />';
-		echo '&nbsp; (ex, your name, online handle or business name. )';		
+		echo '&nbsp; (ex, your name, online handle or business name. )';
 	}
 
 
@@ -143,17 +143,17 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 	function vscs_render_powered_by_url_field() {
 		$poweredBy_url = get_option('vscs_powered_by_url', __('https://domainname.tld', 'very-simple-copyright-shortcode'));
 		echo '<input type="url" name="vscs_powered_by_url" value="' . esc_url($poweredBy_url) . '" />';
-		echo '&nbsp; (ex, your personal or business website (no e-mailaddress) )';		
+		echo '&nbsp; (ex, your personal or business website (no e-mailaddress) )';
 	}
 
 // Display copyright with shortcode
 	function vscs_display_copyright() {
 		$copyYear   		= esc_html(get_option('vscs_copyYear',  ' '));
 		$curYear    		= esc_html(gmdate('Y'));
-		
+
 		$site_title 		= esc_html(get_option('vscs_site_title', get_bloginfo('name')));
 		$site_url   		= site_url();
-		
+
 		$powered_by_text 	= esc_html(get_option('vscs_powered_by_text', __('Powered by text: ', 'very-simple-copyright-shortcode')));
 		$powered_by_name 	= esc_html(get_option('vscs_powered_by_name', __('Powered by name: ', 'very-simple-copyright-shortcode')));
 		$powered_by_url 	= esc_html(get_option('vscs_powered_by_url',  __('Powered by url:  ', 'very-simple-copyright-shortcode')));
@@ -161,7 +161,7 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 		$copyright  = '|&nbsp;' . __('Copyright', 'very-simple-copyright-shortcode') . ' &copy; ' . $copyYear . (($copyYear != $curYear) ? '/' . $curYear : '');
 		$copyright .= ' <a href="' . $site_url . '">' . $site_title . '</a> | ';
 		$copyright .= $powered_by_text . ' <a href="' . $powered_by_url . '" target="_blank">' . $powered_by_name . '</a> | ';
-		
+
 		return $copyright;
 	}
 	add_shortcode('vs_copyright', 'vscs_display_copyright');
