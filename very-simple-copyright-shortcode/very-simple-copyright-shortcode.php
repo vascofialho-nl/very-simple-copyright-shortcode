@@ -7,9 +7,9 @@
 /*
 Plugin Name: Very Simple Copyright Shortcode
 Plugin URI: http://www.vascofialho.nl
-Description: Display copyright information with a shortcode.
+Description: Displays copyright information by using a shortcode.
 Author: vascofmdc
-Version: 1.3.2
+Version: 1.3.3
 Author URI: http://www.vascofialho.nl
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,12 +18,10 @@ Text Domain: very-simple-copyright-shortcode
 
 
 // Include installation scripts
-require_once(plugin_dir_path(__FILE__) . 'install.php');
+	require_once plugin_dir_path(__FILE__) . 'includes/install.php';
 
 // Include updater system (connected with github)
-require_once plugin_dir_path( __FILE__ ) . 'updater.php';
-define( 'VSCS_PLUGIN_VERSION', '1.3.2' ); // Adjust this when you release a new version.
-new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
+	require_once plugin_dir_path( __FILE__ ) . 'includes/updater.php';
 
 // Add a menu item to the dashboard
 	function vscs_add_menu_item() {
@@ -50,16 +48,8 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 	function vscs_render_settings_page() {
 		vscs_validate_user(); // Add user validation check
 
-
-		echo '<div class="wrap" style="text-align: center;">';
-		echo '    <br>';
-		echo '    <hr>';
-		echo '    <img src="'.plugin_dir_url( __FILE__ ).'assets/banner-1544x500.png" alt="vscs banner" style="width:50%; height: auto;">';
-		echo '    <hr>';
-		echo '</div><!-- end of wrap -->';
-
 		echo '<div class="wrap">';
-		echo '    <h2>Copyright Settings</h2>';
+		echo '    <h1>Copyright Settings</h1>';
 
 		echo '	  <form method="post" action="options.php">';
 				      settings_fields('vscs_copyright_settings');
@@ -82,7 +72,6 @@ new VSCS_Plugin_Updater( __FILE__, VSCS_PLUGIN_VERSION );
 	function vscs_register_settings() {
 		register_setting('vscs_copyright_settings', 'vscs_copyYear');
 		register_setting('vscs_copyright_settings', 'vscs_site_title');
-
 		register_setting('vscs_copyright_settings', 'vscs_powered_by_text');
 		register_setting('vscs_copyright_settings', 'vscs_powered_by_name');
 		register_setting('vscs_copyright_settings', 'vscs_powered_by_url');

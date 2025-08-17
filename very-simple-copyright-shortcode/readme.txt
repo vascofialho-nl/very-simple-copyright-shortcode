@@ -43,6 +43,11 @@ Use the `[vs_copyright]` shortcode in your posts, pages, or widgets to display t
 
 == Changelog ==
 
+= 1.3.3 = 2025-08-17 
+ - replaced old updater file with the newest version
+ - removed banner support from the settings page. 
+
+
 = 1.3.2 = 
 some code updates
 
